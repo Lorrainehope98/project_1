@@ -16,10 +16,12 @@ if (isset($_POST["firstname"])) {
       }
       if (mysqli_query($con,$sql)) {
       // redirect uses GET instead of POST
+         $msg->add('s', 'new user added');
+         header('Location: manage_users.php');
 
    }  
 }
-
+echo $msg->display();
 ?> 
 <html>
 <body>
@@ -40,11 +42,11 @@ $result = mysqli_query($con,"SELECT * FROM users ORDER BY lastname");
    echo "<table border='1'>
    <tr>
       <th>user_id</th>
-      <th>first name</th>
-      <th>last name</th>
+      <th>firstname</th>
+      <th>lastname</th>
       <th>email</th>
       <th>edit form</th>
-      <th>delete records</th>
+      <th>deleterecords</th>
    </tr>";
 
 while($row = mysqli_fetch_array($result))
@@ -54,7 +56,7 @@ while($row = mysqli_fetch_array($result))
    echo "<td>" . $row['firstname'] ."</td>";
    echo "<td>" . $row['lastname'] . "</td>";
    echo "<td>" . $row['email'] . "</td>";
-   echo "<td><a href=\"/lorraine/project_1/user_edit.phpuser_id={$row['user_id']}\">Edit Form</a></td>";
+   echo "<td><a href=\"/lorraine/project_1/user_edit.php?user_id={$row['user_id']}\">Edit Form</a></td>";
    echo "<td><a href=\"/lorraine/project_1/delete_user.php?user_id={$row['user_id']}\">Delete Records</a></td>";
    echo "</tr>";
    }
